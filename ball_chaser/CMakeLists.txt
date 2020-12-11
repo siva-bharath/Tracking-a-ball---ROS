@@ -55,10 +55,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate services in the 'srv' folder
 add_service_files(
-    FILES
-    DriveToTarget.srv
-#   Service2.srv
- )
+   FILES
+   DriveToTarget.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -67,13 +66,11 @@ add_service_files(
 #   Action2.action
 # )
 
-
-
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-    DEPENDENCIES
-    std_msgs
- )
+   DEPENDENCIES
+   std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,10 +102,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ball_chaser
-#  CATKIN_DEPENDS message_generation roscpp std_msgs
-#  DEPENDS system_lib
+   #INCLUDE_DIRS include
+   #LIBRARIES ball_chaser
+   #CATKIN_DEPENDS message_generation roscpp std_msgs
+   #DEPENDS system_lib
 )
 
 ###########
@@ -135,8 +132,10 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
+# add_executable(${PROJECT_NAME}_node src/ball_chaser_node.cpp)
 add_executable(drive_bot src/drive_bot.cpp)
 add_executable(process_image src/process_image.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -145,16 +144,16 @@ add_executable(process_image src/process_image.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-## add_dependencies(drive_bot ball_chaser_generate_messages_cpp)
-## add_dependencies(process_image ball_chaser_generate_messages_cpp)
-
-add_dependencies(drive_bot ${drive_bot_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(process_image ${process_image_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(drive_bot ball_chaser_generate_messages_cpp)
+add_dependencies(process_image ball_chaser_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
 target_link_libraries(drive_bot ${catkin_LIBRARIES})
 target_link_libraries(process_image ${catkin_LIBRARIES})
-
 
 #############
 ## Install ##
@@ -165,23 +164,16 @@ target_link_libraries(process_image ${catkin_LIBRARIES})
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# catkin_install_python(PROGRAMS
+# install(PROGRAMS
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark executables for installation
-## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark libraries for installation
-## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-# install(TARGETS ${PROJECT_NAME}
+## Mark executables and/or libraries for installation
+# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
 ## Mark cpp header files for installation
@@ -210,5 +202,3 @@ target_link_libraries(process_image ${catkin_LIBRARIES})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-
